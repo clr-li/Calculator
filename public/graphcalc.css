@@ -1,0 +1,173 @@
+.graphCalc * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow: visible; /* Tool Panel Visible */
+    
+    /* overwrite global styles.css */
+    float: inherit;
+}
+
+#hidable {
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    display: none;
+  
+    /* overwrite global styles.css */
+    float: none;
+    clear: both;
+}
+
+.graphCalc {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+}
+
+.graph {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 30%;
+    width: auto;
+    height: 100%;
+}
+
+.eqContainer {
+    background: #222324;
+    width: 30%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+}
+
+#equations {
+    width: 100%;
+    height: fit-content;
+    max-height: calc(100% - 42px - 20px);
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.equation {
+    background: white;
+    margin: 10px;
+    margin-left: 6px;
+    width: calc(100% - 20px);
+    min-height: 80px;
+    border-radius: 10px;
+    border: 5px solid #0c6dcf;
+    position: relative;
+    overflow: hidden;
+}
+
+#addEquation {
+    background-color: #0c6dcf;
+    border-color: #0c6dcf;
+    border-style: solid;
+    color: white;
+    border-radius: 50%;
+    font-size: 32px;
+    height: 42px;
+    width: 42px;
+    margin-right: 4px;
+}
+#addEquation:before {
+  content: '\FF0B';
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: none;
+  line-height: normal;
+}
+
+#dragbar {
+    background-color: black;
+    height: 100vh;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 8px;
+    cursor: col-resize;
+}
+
+#ghostbar {
+    width: 6px;
+    background-color: #000000;
+    opacity: 0.5;
+    position: absolute;
+    cursor: col-resize;
+    z-index: 99;
+}
+
+#touchcatch {
+    /* background: pink;  */
+    width: 100vw; 
+    height: 100vh; 
+    position: fixed; 
+    top: 0; left: 0; 
+    z-index: 999; 
+    display: none;
+}
+
+.custom-field {
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 0; right: 0;
+    margin: auto;
+    --field-padding: 12px;
+    text-align: left;
+    --font-size: 16px;
+}
+
+.custom-field input {
+    border: none;
+    -webkit-appearance: none;
+    -ms-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: white;
+    border-radius: 3px;
+    width: 100%;
+    padding: var(--field-padding);
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 0; right: 0;
+    margin: auto;
+    font-size: var(--font-size);
+}
+
+.custom-field input:focus {
+    outline: none;
+}
+
+.custom-field .placeholder {
+    font-size: var(--font-size);
+    background-color: white;
+    position: absolute;
+    left: var(--field-padding);
+    width: calc(100% - (var(--field-padding) * 2));
+    top: 50%;
+    height: fit-content;
+    transform: translateY(-50%);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    transition: 
+        top 0.3s ease,
+        color 0.3s ease,
+        font-size 0.3s ease;
+}
+
+.custom-field input:focus + .placeholder { /* Move placeholder when input selected */
+    top: 20%;
+    font-size: 12px;
+}

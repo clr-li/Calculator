@@ -1,0 +1,15 @@
+{
+    "name": "Calculator",
+    "short_name": "Calc",
+    "description": "Calculator",
+    "display": "standalone",
+    "start_url": "/",
+    "icons": [
+      {
+        "src": "calcicon.png",
+        "sizes": "128x128",
+        "type": "image/png"
+      }
+    ],
+    "splash_pages": null
+  }

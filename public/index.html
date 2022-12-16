@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="calcicon.png">
+    <title>Calculator</title>
+
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="apple-touch-icon" sizes="128x128" href="calcicon.png">
+<!--     <link rel="stylesheet/less" type="text/css" href="wurtleGraphics/style.less" />
+    <script src="https://cdn.jsdelivr.net/npm/less@4.1.1" ></script> -->
+    
+    <!--   CLAIRCULATOR 3D (1/2)   -->
+    <!-- plotly.js: 3D graphing library -->
+    <script src="https://cdn.plot.ly/plotly-2.14.0.min.js"></script>
+    <!-- math.js: expression manipulator and solver -->
+    <script src="https://pagecdn.io/lib/mathjs/11.0.1/math.min.js"></script>
+    <!-- nerdamer: different expression manipulator and solver with more capabilities -->
+    <script src="https://cdn.jsdelivr.net/npm/nerdamer@1.1.13/all.min.js"></script>
+    <!-- MathJax: replace latex with rendered latex for display purposes -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- JQuery for draggable sidebar -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!--   Styles   -->
+    <link rel="stylesheet" href="graphcalc.css">
+    <!--   CLAIRCULATOR 3D (1/2)   -->
+    
+  </head>
+  <body>
+    <script src="/script.js"></script>
+    <div onclick="changeButtons()" class="screenContainer">
+      <div id="screen" style="font-size: 10vw;"></div>
+    </div>
+    <script> /* make screen smaller on devices that aren't as tall */
+      function set100vhVar() {
+        // If less than most tablets, set CSS var to window height.
+        let value = `${window.innerHeight}px`;
+        document.documentElement.style.setProperty("--real100vh", value);
+      }
+      window.addEventListener('load', set100vhVar);
+      window.addEventListener('resize', set100vhVar);
+    </script>
+    <div class="buttons" style="display: block; position: absolute; bottom: 0px;">
+      <button onclick="undo()" style="width: 40vw; background-color: #0c6dcf; border-color: #0c6dcf;" class="undo">AC</button>
+      <button onclick="clickParenthesis('(')" class="operator">(</button>
+      <button onclick="clickParenthesis(')')" class="operator">)</button>
+      <button onclick="clickOperator('/')" class="operator">&#xF7;</button>
+
+      <button onclick="clickConstant('(pi)')" style="background-color: #222324">&#960;</button>
+      <button onclick="clickNumber(7)">7</button>
+      <button onclick="clickNumber(8)">8</button>
+      <button onclick="clickNumber(9)">9</button>
+      <button onclick="clickOperator('*')" class="operator">&#215;</button>
+      <button onclick="clickConstant('(e)')" style="background-color: #222324">e</button>
+      <button onclick="clickNumber(4)">4</button>
+      <button onclick="clickNumber(5)">5</button>
+      <button onclick="clickNumber(6)">6</button>
+      <button onclick="clickOperator('-')" class="operator">-</button>
+      <button onclick="clickUnary('^2')" style="background-color: #222324">x<sup style="font-size: 4vw;">2</sup></button>
+      <button onclick="clickNumber(1)">1</button>
+      <button onclick="clickNumber(2)">2</button>
+      <button onclick="clickNumber(3)">3</button>
+      <button onclick="clickOperator('+')" class="operator">+</button>
+      
+      <button onclick="clickFunction('sqrt(')" style="background-color: #222324">&radic;</button>
+      <button onclick="clickNumber(0)" style="width: 40vw;">0</button>
+      <button onclick="clickNumber('.')">.</button>
+      <button onclick="calculate()" style="background-color: #0c6dcf; border-color: #0c6dcf;">=</button>
+    </div>
+    <div class="buttons" style="display: none; position: absolute; bottom: 0px;">
+      <button onclick="undo()" style="width: 40vw; background-color: #0c6dcf; border-color: #0c6dcf;" class="undo">AC</button>
+      <button onclick="clickFunction('log(')" class="operator">ln</button>
+      <button onclick="clickFunction('log10(')" class="operator">log</button>
+      <button onclick="clickUnary('!')" class="operator">!</button>
+
+      <button onclick="clickFunction('sin(')" style="background-color: #222324">sin</button>
+      <button onclick="clickNumber(7)">7</button>
+      <button onclick="clickNumber(8)">8</button>
+      <button onclick="clickNumber(9)">9</button>
+      <button onclick="clickFunction('asin(')" class="operator">sin<sup style="font-size: 4vw;">-1</sup></button>
+      <button onclick="clickFunction('cos(')" style="background-color: #222324">cos</button>
+      <button onclick="clickNumber(4)">4</button>
+      <button onclick="clickNumber(5)">5</button>
+      <button onclick="clickNumber(6)">6</button>
+      <button onclick="clickFunction('acos(')" class="operator">cos<sup style="font-size: 4vw;">-1</sup></button>
+      <button onclick="clickFunction('tan(')" style="background-color: #222324">tan</button>
+      <button onclick="clickNumber(1)">1</button>
+      <button onclick="clickNumber(2)">2</button>
+      <button onclick="clickNumber(3)">3</button>
+      <button onclick="clickFunction('atan(')" class="operator">tan<sup style="font-size: 4vw;">-1</sup></button>
+      
+      <button onclick="clickMode('Rad')" style="background-color: #222324" id="radRD">Rad</button> <!--!!!-->
+      <button onclick="clickNumber(0)" style="width: 40vw;">0</button>
+      <button onclick="clickNumber('.')">.</button>
+      <button onclick="calculate()" style="background-color: #0c6dcf; border-color: #0c6dcf;">=</button>
+    </div>
+    
+    <!--   CLAIRCULATOR 3D (2/2)   -->
+    <div id="hidable">
+        <div class="graphCalc">
+            <div class="eqContainer">
+                <div id="equations">
+                    <!-- Javascript adds equation inputs here -->
+                </div>
+                <button id="addEquation"></button> <!-- Using full-width plus &#65291; so it aligns nicely -->
+                <div id="dragbar" ontouch=""></div>
+            </div>
+            <div class="graph">
+                <div id="plotly"></div>
+            </div>
+        </div>
+        <div id="touchcatch"></div>    
+    </div>
+    <script src="graphcalc.js"></script>
+    <script src="graphcalcResize.js"></script>
+    <!--   CLAIRCULATOR 3D (2/2)   -->
+
+<!--     <div class="background">
+      <div id="bubble-field"></div>
+      <div class="fish">
+          <div class="top-fin"></div>
+          <div class="fish-body"></div>
+          <div class="tail-fin"></div>
+          <div class="side-fin"></div>
+          <div class="scale scale-1"></div>
+          <div class="scale scale-2"></div>
+          <div class="scale scale-3"></div>
+      </div>  
+      <div class="fish blue-fish">
+          <div class="top-fin"></div>
+          <div class="fish-body"></div>
+          <div class="tail-fin"></div>
+          <div class="side-fin"></div>
+          <div class="scale scale-1"></div>
+          <div class="scale scale-2"></div>
+          <div class="scale scale-3"></div>
+      </div>
+      
+      <div class="position">
+          <main class="turtle">  
+              <div class="turtle__head"></div>
+              <div class="turtle__legs -left"></div>
+              <div class="turtle__legs -right"></div>
+              <div class="turtle__tail"></div>
+              
+              <section class="turtle__shell">
+                  <div></div>
+              </section>
+          </main>
+      </div>
+      <script src="wurtleGraphics/sketch.js"></script> 
+  </div> -->
+  </body>
+</html>

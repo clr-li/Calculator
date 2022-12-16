@@ -1,0 +1,65 @@
+button {
+    width: 20vw;
+    height: 20vw;
+    margin-left: 0px;
+    margin-right: 0px; float: left;
+    font-size: 8vw;
+    color: white; 
+    background-color: black;
+    border-color: #494b4d;
+  
+    /*   Disable text selection   */
+    -webkit-user-select: none;  
+    -moz-user-select: none;    
+    -ms-user-select: none;      
+    user-select: none;
+    
+    /*   Graphing calculator only works when no global font is set, sorry   */
+    font-family: helvetica; 
+}
+
+/* real vh*/
+:root {
+    --real100vh: 100vh;
+    --supFontsize: 5vw;
+}
+
+.operator { 
+    background-color: #222324;
+    color: #0c6dcf;
+}
+
+#screen {
+    color: white; 
+    height: fit-content;
+    overflow: visible;
+    position: absolute;
+    margin: auto;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    white-space: nowrap;
+    border: none; 
+    background-color: black;
+    font-family: helvetica;
+}
+
+.screenContainer {
+    position: relative; 
+    width: 100vw; 
+    height: calc(var(--real100vh) - 100vw); 
+    background-color: black; 
+    max-height: calc(var(--real100vh) - 100vw); /* make screen smaller on devices that aren't as tall */
+}
+
+body {
+    margin: 0px; 
+    background: black;
+}
+
+* {
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    touch-action: none;
+}
